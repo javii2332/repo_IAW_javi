@@ -1,0 +1,28 @@
+version: '3.1'
+services:
+  bookmedik:
+    container_name: bookmedik
+    image: javi2332/practica3:latest
+    restart: always
+    environment:
+      DB_HOST: mariadb
+      DB_USER: admin
+      DB_PASS: admin
+      DB_NAME: bookmedik
+    ports:
+      - 80:80
+    depends_on:
+      - mariadb
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DB}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+volumes:
+    mariadb_data:
